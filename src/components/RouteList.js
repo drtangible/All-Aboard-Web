@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class RouteList extends Component {
   render() {
@@ -14,10 +15,10 @@ export default class RouteList extends Component {
     return (
       <div>
         {routes.map(route => (
-          <div key={route.number} className="route-list-item" onClick={() => selectRoute(route)}>
+          <Link to={`/routes/${route.number}`} key={route.number} className="route-list-item" onClick={() => selectRoute(route)}>
             <span className="route-list-item-number">{route.number}</span>
             <span className="route-list-item-name">{route.name}</span>
-          </div>
+          </Link>
         ))}
       </div>
     );

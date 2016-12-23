@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import SearchBarContainer from './SearchBarContainer';
 import RouteListContainer from './RouteListContainer';
-import RouteDetailContainer from './RouteDetailContainer';
 
 export default class App extends Component {
   render() {
@@ -14,7 +13,7 @@ export default class App extends Component {
         </div>
 
         <div className="col-md-8 column-main">
-          <RouteDetailContainer />
+          {this.props.children}
         </div>
       </div>
     );

@@ -30,15 +30,23 @@
 
 .route-list-item {
   padding: 0.75em 0.25em;
+  color: white;
+  display: block;
 }
 
 .route-list-item:hover {
   opacity: 0.7;
   cursor: pointer;
+  color: white;
+}
+
+.route-list-item:focus {
+  color: white;
 }
 
 .route-list-item:active {
   opacity: 0.5;
+  color: white;
 }
 
 .route-list-item-number {
@@ -75,4 +83,13 @@
   display: inline-block;
   margin-left: 0.75em;
   font-weight: 100;
+}
+
+.route-detail-directions {
+  font-size: 2em;
+  font-weight: 100;
+}
+
+.route-detail-directions-selected {
+  font-weight: 400;
 }

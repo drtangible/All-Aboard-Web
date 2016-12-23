@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { doSomething } from '../actions';
+import { fetchRouteDetails, selectDirection } from '../actions';
 
 import RouteDetail from '../components/RouteDetail';
 
@@ -17,7 +17,9 @@ class RouteDetailContainer extends Component {
 function mapStateToProps(state) {
   return {
     route: state.routes.selected,
+    routeDetails: state.routes.selectedDetails,
+    selectedDirection: state.directions.selected,
   }
 }
 
-export default connect(mapStateToProps, {})(RouteDetailContainer);
+export default connect(mapStateToProps, { fetchRouteDetails, selectDirection })(RouteDetailContainer);
