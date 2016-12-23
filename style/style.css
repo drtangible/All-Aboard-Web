@@ -12,6 +12,22 @@
   height: 100vh;
 }
 
+.search-bar-container {
+  padding: 1em 0;
+}
+
+.search-bar-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 0.5em 1em;
+  border-radius: 1.5em;
+  font-weight: 100;
+}
+
+.search-bar-input:focus {
+  outline-width: 0;
+}
+
 .route-list-item {
   padding: 0.75em 0.25em;
 }
@@ -37,6 +53,7 @@
 .route-list-item-name {
   display: inline-block;
   margin-left: 1em;
+  font-weight: 100;
 }
 
 .route-detail-header {
