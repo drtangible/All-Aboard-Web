@@ -3,6 +3,7 @@
   background-color: #142C5C;
   color: white;
   height: 100vh;
+  overflow: scroll;
 }
 
 .column-main {
@@ -11,3 +12,49 @@
   height: 100vh;
 }
 
+.route-list-item {
+  padding: 0.75em 0.25em;
+}
+
+.route-list-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.route-list-item:active {
+  opacity: 0.5;
+}
+
+.route-list-item-number {
+  display: inline-block;
+  background-color: #FDC151;
+  width: 2.5em;
+  border-radius: 1em;
+  text-align: center;
+  color: #6A4501;
+}
+
+.route-list-item-name {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.route-detail-header {
+  font-size: 2em;
+  text-align: center;
+  padding: 1em;
+}
+
+.route-detail-header-number {
+  display: inline-block;
+  background-color: #FDC151;
+  width: 2.5em;
+  border-radius: 1em;
+  text-align: center;
+  color: #6A4501;
+}
+
+.route-detail-header-name {
+  display: inline-block;
+  margin-left: 1em;
+}

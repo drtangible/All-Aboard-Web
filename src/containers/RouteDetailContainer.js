@@ -14,4 +14,10 @@ class RouteDetailContainer extends Component {
   }
 }
 
-export default connect(null, {})(RouteDetailContainer);
+function mapStateToProps(state) {
+  return {
+    route: state.routes.selected,
+  }
+}
+
+export default connect(mapStateToProps, {})(RouteDetailContainer);

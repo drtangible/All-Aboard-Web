@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { doSomething } from '../actions';
+import { fetchRoutes, selectRoute } from '../actions';
 
 import RouteList from '../components/RouteList';
 
 class RouteListContainer extends Component {
+
+  componentWillMount() {
+    let {
+      fetchRoutes,
+    } = this.props;
+
+    fetchRoutes();
+  }
+
   render() {
     console.log("RouteListContainer#render", { props: this.props });
 
@@ -14,4 +23,10 @@ class RouteListContainer extends Component {
   }
 }
 
-export default connect(null, {})(RouteListContainer);
+function mapStateToProps(state) {
+  return {
+    routes: state.routes.all,
+  };
+}
+
+export default connect(mapStateToProps, { fetchRoutes, selectRoute })(RouteListContainer);
