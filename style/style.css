@@ -73,5 +73,6 @@
 
 .route-detail-header-name {
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 0.75em;
+  font-weight: 100;
 }

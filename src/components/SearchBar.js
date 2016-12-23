@@ -30,8 +30,14 @@ export default class SearchBar extends Component {
   }
 
   _onChange(e) {
+    let {
+      updateSearchTerm,
+    } = this.props;
+
     this.setState({
       term: e.target.value,
     });
+
+    updateSearchTerm(e.target.value);
   }
 }

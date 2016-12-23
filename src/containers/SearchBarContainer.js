@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { doSomething } from '../actions';
+import { updateSearchTerm } from '../actions';
 
 import SearchBar from '../components/SearchBar';
 
@@ -14,4 +14,4 @@ class SearchBarContainer extends Component {
   }
 }
 
-export default connect(null, {})(SearchBarContainer);
+export default connect(null, { updateSearchTerm })(SearchBarContainer);

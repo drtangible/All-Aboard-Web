@@ -3,6 +3,7 @@ import qs from 'qs';
 
 export const FETCH_ROUTES = "FETCH_ROUTES";
 export const SELECT_ROUTE = "SELECT_ROUTE";
+export const UPDATE_SEARCH_TERM = "UPDATE_SEARCH_TERM";
 
 const API_ROOT_URL = "http://localhost:8082";
 
@@ -23,5 +24,12 @@ export function selectRoute(route) {
   return {
     type: SELECT_ROUTE,
     payload: route,
+  };
+}
+
+export function updateSearchTerm(term) {
+  return {
+    type: UPDATE_SEARCH_TERM,
+    payload: term,
   };
 }
