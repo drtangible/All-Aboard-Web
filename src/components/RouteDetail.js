@@ -4,21 +4,31 @@ export default class RouteDetail extends Component {
 
   componentWillUpdate(nextProps) {
     let {
+      stop,
       params,
       fetchRouteDetails,
+      fetchPredictions,
     } = this.props;
 
     if (params.id !== nextProps.params.id) {
-      fetchRouteDetails(params.id);
+      fetchRouteDetails(nextProps.params.id);
+    }
+
+    // TODO: Figure out where to better handle this.
+    let previousStopId = stop ? stop.id : null;
+    let nextStopId = nextProps.stop ? nextProps.stop.id : null;
+    if (nextStopId && (nextStopId !== previousStopId)) {
+      fetchPredictions(nextProps.route.id, nextProps.stop.id);
     }
 
     this._renderDirections = this._renderDirections.bind(this);
-    this._renderClosestStop = this._renderClosestStop.bind(this);
+    this._renderStop = this._renderStop.bind(this);
   }
 
   render() {
     let {
       route,
+      predictions,
     } = this.props;
 
     if (!route) return <div></div>;
@@ -30,8 +40,43 @@ export default class RouteDetail extends Component {
           <span className="route-detail-header-name">{route.name}</span>
         </div>
 
+        {this._renderNextArrival(predictions[0])}
         {this._renderDirections()}
-        {this._renderClosestStop()}
+        {this._renderStop()}
+        {this._renderUpcommingArrival(predictions[1])}
+        {this._renderUpcommingArrival(predictions[2])}
+      </div>
+    );
+  }
+
+  _renderNextArrival(prediction) {
+    if (!prediction) return <div></div>;
+
+    return (
+      <div className="text-center">
+        <div>
+          {prediction.arrivingNow ? "DUE" : prediction.minutesAway}
+        </div>
+
+        <div>
+          {prediction.arrivingNow ? "" : "minutes"}
+        </div>
+      </div>
+    );
+  }
+
+  _renderUpcommingArrival(prediction) {
+    if (!prediction) return <div></div>;
+
+    return (
+      <div className="text-center">
+        <div>
+          {prediction.arrivingNow ? "DUE" : prediction.minutesAway}
+        </div>
+
+        <div>
+          {prediction.arrivingNow ? "" : "minutes"}
+        </div>
       </div>
     );
   }
@@ -58,22 +103,17 @@ export default class RouteDetail extends Component {
     );
   }
 
-  _renderClosestStop() {
+  _renderStop() {
     let {
-      selectedDirection,
+      stop,
     } = this.props;
 
-    if (!selectedDirection) return <div></div>;
-
-    console.log("selectedDirection", selectedDirection.name);
-
-    // TODO: Find closest stop by user's distance.
-    let closestStop = selectedDirection.stops[0];
+    if (!stop) return <div></div>;
 
     return (
       <div className="route-detail-stop text-center">
         <div className="route-detail-stop-name">
-          {closestStop.name}
+          {stop.name}
         </div>
       </div>
     );

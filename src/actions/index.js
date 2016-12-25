@@ -6,10 +6,11 @@ export const SELECT_ROUTE = "SELECT_ROUTE";
 export const FETCH_ROUTE_DETAILS = "FETCH_ROUTE_DETAILS";
 export const SELECT_DIRECTION = "SELECT_DIRECTION";
 export const UPDATE_SEARCH_TERM = "UPDATE_SEARCH_TERM";
+export const FETCH_PREDICTIONS = "FETCH_PREDICTIONS";
 
 const API_ROOT_URL = "http://localhost:8082";
 
-function apiURL(path) {
+function apiURL(path, queryParams = {}) {
   return `${API_ROOT_URL}/${path}`;
 };
 
@@ -49,5 +50,14 @@ export function updateSearchTerm(term) {
   return {
     type: UPDATE_SEARCH_TERM,
     payload: term,
+  };
+}
+
+export function fetchPredictions(routeId, stopId) {
+  let request = axios.get(apiURL(`routes/${routeId}/stops/${stopId}/predictions`));
+
+  return {
+    type: FETCH_PREDICTIONS,
+    payload: request,
   };
 }

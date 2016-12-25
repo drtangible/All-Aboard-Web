@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchRouteDetails, selectDirection } from '../actions';
+import { fetchRouteDetails, fetchPredictions, selectDirection } from '../actions';
 
 import RouteDetail from '../components/RouteDetail';
 
@@ -19,7 +19,9 @@ function mapStateToProps(state) {
     route: state.routes.selected,
     routeDetails: state.routes.selectedDetails,
     selectedDirection: state.directions.selected,
+    stop: state.directions.selected ? state.directions.selected.stops[0] : null,
+    predictions: state.predictions,
   }
 }
 
-export default connect(mapStateToProps, { fetchRouteDetails, selectDirection })(RouteDetailContainer);
+export default connect(mapStateToProps, { fetchRouteDetails, fetchPredictions, selectDirection })(RouteDetailContainer);
