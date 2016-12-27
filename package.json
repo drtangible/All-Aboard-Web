@@ -39,5 +39,8 @@
     "redux": "^3.0.4",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0"
+  },
+  "engines": {
+    "node": "7.0.0"
   }
 }
