@@ -3,26 +3,7 @@ import React, { Component } from 'react';
 export default class RouteDetail extends Component {
 
   componentWillUpdate(nextProps) {
-    let {
-      stop,
-      params,
-      fetchRouteDetails,
-      fetchPredictions,
-    } = this.props;
-
-    if (params.id !== nextProps.params.id) {
-      fetchRouteDetails(nextProps.params.id);
-    }
-
-    // TODO: Figure out where to better handle this.
-    let previousStopId = stop ? stop.id : null;
-    let nextStopId = nextProps.stop ? nextProps.stop.id : null;
-    if (nextStopId && (nextStopId !== previousStopId)) {
-      fetchPredictions(nextProps.route.id, nextProps.stop.id);
-    }
-
     this._renderDirections = this._renderDirections.bind(this);
-    this._renderStop = this._renderStop.bind(this);
   }
 
   render() {
@@ -40,26 +21,50 @@ export default class RouteDetail extends Component {
           <span className="route-detail-header-name">{route.name}</span>
         </div>
 
-        {this._renderNextArrival(predictions[0])}
         {this._renderDirections()}
-        {this._renderStop()}
-        {this._renderUpcommingArrival(predictions[1])}
-        {this._renderUpcommingArrival(predictions[2])}
+
+        {this._renderNextArrival(predictions)}
+        {predictions && this._renderUpcommingArrival(predictions[1])}
+        {predictions && this._renderUpcommingArrival(predictions[2])}
       </div>
     );
   }
 
-  _renderNextArrival(prediction) {
-    if (!prediction) return <div></div>;
+  _renderNextArrival(predictions) {
+    if (predictions === null) {
+      return (
+        <div className="route-detail-loading">
+          <i className="fa fa-xl fa-circle-o-notch fa-spin" />
+        </div>
+      );
+    }
+
+    if (predictions.length === 0) {
+      return (
+        <div className="route-detail-no-service">
+          No service scheduled
+        </div>
+      );
+    };
+
+    let prediction = predictions[0];
 
     return (
-      <div className="text-center">
-        <div>
+      <div className="route-detail-next-arrival">
+        <div className="route-detail-next-arrival-minutes-away">
           {prediction.arrivingNow ? "DUE" : prediction.minutesAway}
         </div>
 
-        <div>
+        <div className="route-detail-next-arrival-minutes-away-label">
           {prediction.arrivingNow ? "" : "minutes"}
+        </div>
+
+        <div className="route-detail-next-arrival-stop-name">
+          {prediction.stopName}
+        </div>
+
+        <div className="route-detail-next-arrival-destination">
+          To {prediction.destination}
         </div>
       </div>
     );
@@ -69,23 +74,18 @@ export default class RouteDetail extends Component {
     if (!prediction) return <div></div>;
 
     return (
-      <div className="text-center">
-        <div>
-          {prediction.arrivingNow ? "DUE" : prediction.minutesAway}
-        </div>
-
-        <div>
-          {prediction.arrivingNow ? "" : "minutes"}
-        </div>
+      <div className="route-detail-upcoming-arrival">
+        {prediction.arrivingNow ? "DUE" : prediction.minutesAway} {prediction.arrivingNow ? "" : "minutes"}
       </div>
     );
   }
 
   _renderDirections() {
     let {
+      route,
       routeDetails,
       selectedDirection,
-      selectDirection,
+      selectDirectionAndFetchPredictions,
     } = this.props;
 
     return (
@@ -94,27 +94,11 @@ export default class RouteDetail extends Component {
           <div
             key={direction.id}
             className={`col-6 ${selectedDirection && selectedDirection.id === direction.id ? 'route-detail-directions-selected' : ''}`}
-            onClick={() => selectDirection(direction)}
+            onClick={() => selectDirectionAndFetchPredictions(route, direction)}
             >
             {direction.name}
           </div>
         ))}
-      </div>
-    );
-  }
-
-  _renderStop() {
-    let {
-      stop,
-    } = this.props;
-
-    if (!stop) return <div></div>;
-
-    return (
-      <div className="route-detail-stop text-center">
-        <div className="route-detail-stop-name">
-          {stop.name}
-        </div>
       </div>
     );
   }

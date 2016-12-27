@@ -5,17 +5,17 @@ import {
 } from '../actions';
 
 
-export default function(state = [], action) {
+export default function(state = null, action) {
   switch(action.type) {
 
     case FETCH_PREDICTIONS:
       return action.payload.data;
 
     case SELECT_DIRECTION:
-      return [];
+      return null;
 
     case SELECT_ROUTE:
-      return [];
+      return null;
 
   }
 

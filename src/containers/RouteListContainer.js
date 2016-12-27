@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchRoutes, selectRoute } from '../actions';
+import { fetchRoutes, selectRouteAndFetchDetails } from '../actions';
 
 import RouteList from '../components/RouteList';
 
@@ -16,8 +16,6 @@ class RouteListContainer extends Component {
   }
 
   render() {
-    console.log("RouteListContainer#render", { props: this.props });
-
     return (
       <RouteList {...this.props} />
     );
@@ -51,4 +49,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchRoutes, selectRoute })(RouteListContainer);
+export default connect(mapStateToProps, { fetchRoutes, selectRouteAndFetchDetails })(RouteListContainer);

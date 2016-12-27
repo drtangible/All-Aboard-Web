@@ -6,6 +6,6 @@ import RouteDetailContainer from './containers/RouteDetailContainer';
 
 export default (
   <Route path="/" component={App}>
-     <Route path="routes/:id" component={RouteDetailContainer} onEnter={() => console.log("onEnter")}/>
+     <Route path="routes/:id" component={RouteDetailContainer} />
   </Route>
 );

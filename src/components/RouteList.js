@@ -3,11 +3,9 @@ import { Link } from 'react-router';
 
 export default class RouteList extends Component {
   render() {
-    console.log("RouteList#render", this.props);
-
     let {
       routes,
-      selectRoute,
+      selectRouteAndFetchDetails,
     } = this.props;
 
     if (!routes) return <div></div>;
@@ -15,7 +13,7 @@ export default class RouteList extends Component {
     return (
       <div>
         {routes.map(route => (
-          <Link to={`/routes/${route.number}`} key={route.number} className="route-list-item" onClick={() => selectRoute(route)}>
+          <Link to={`/routes/${route.number}`} key={route.number} className="route-list-item" onClick={() => selectRouteAndFetchDetails(route)}>
             <span className="route-list-item-number">{route.number}</span>
             <span className="route-list-item-name">{route.name}</span>
           </Link>
